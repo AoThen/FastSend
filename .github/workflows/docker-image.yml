@@ -45,10 +45,10 @@ jobs:
 
       - name: push docker
         run: |
-          docker tag fastsend:latest ${{ secrets.DOCKER_USERNAME }}/FastSend:latest
-          docker tag fastsend.slim:latest ${{ secrets.DOCKER_USERNAME }}/FastSend:slim
-          docker ${{ secrets.DOCKER_USERNAME }}/FastSend:latest
-          docker ${{ secrets.DOCKER_USERNAME }}/FastSend:slim
+          docker tag fastsend:latest ${{ secrets.DOCKER_USERNAME }}/fastsend:latest
+          docker tag fastsend.slim:latest ${{ secrets.DOCKER_USERNAME }}/fastsend:slim
+          docker push ${{ secrets.DOCKER_USERNAME }}/fastsend:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/fastsend:slim
 
       # - name: Build and push Docker image
       #   uses: docker/build-push-action@v6

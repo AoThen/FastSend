@@ -30,6 +30,35 @@ jobs:
           slim build fastsend:latest
           docker images
 
+      - name: Login to Docker Hub
+        uses: docker/login-action@master
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: push docker
+        run: |
+          docker tag fastsend:latest ${{ secrets.DOCKER_USERNAME }}/FastSend:latest
+          docker tag fastsend.slim:latest ${{ secrets.DOCKER_USERNAME }}/FastSend:slim
+          docker ${{ secrets.DOCKER_USERNAME }}/FastSend:latest
+          docker ${{ secrets.DOCKER_USERNAME }}/FastSend:slim
+
+      # - name: Build and push Docker image
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: .
+      #     file: Dockerfile
+      #     push: true
+      #     tags: ${{ secrets.DOCKER_USERNAME }}/FastSend:latest
+
+
       - name: Delete workflow runs
         uses: AoThen/delete-workflow-runs@main
         with:
